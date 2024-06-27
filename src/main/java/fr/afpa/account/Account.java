@@ -1,17 +1,16 @@
 package fr.afpa.account;
 
-import java.util.Scanner;
-
 /**
  * Classe représentant un compte bancaire
  */
 class Account {
     // TODO à compléter
 
-    public Scanner sc = new Scanner(System.in);
-
     private String iban;
     private int balance;
+    /**
+     * découvert autorisé (entier positif)
+     */
     private int overdraftAuthorization;
 
     // constructeur de la classe
@@ -23,7 +22,8 @@ class Account {
 
     @Override
     public String toString() {
-        return "Account [iban=" + iban + ", balance=" + balance + ", overdraftAuthorization=" + overdraftAuthorization
+        return "Account [iban=" + this.iban + ", balance=" + this.balance + ", overdraftAuthorization="
+                + this.overdraftAuthorization
                 + "]";
     }
 
@@ -56,60 +56,58 @@ class Account {
         this.overdraftAuthorization = overdraftAuthorization;
     }
 
-    public int AddMoney(int balance) {
-        this.balance = balance;
-        System.out.println("Combien voulez vous rajouter sur votre compte");
-        int addMoney = sc.nextInt();
-        return this.balance = balance + addMoney;
+    public int addMoney(int amount) {
+        // amount représente l'ajout d'argent; l'attribut balance de l'object account...
+        this.balance = this.balance + amount;
+        // retourne le nouveau montant du compte en banque après l'addition du montant.
+        return this.balance;
     }
 
     // ----------------------------------------------------------------------------------------------
-    public int RemoveMoney(int amount) throws Exception {
+    /**
+     * Cette fonction retire de l'argent dans le compte à condition que le
+     * solde(balance) et le découvert autorisé le permettent.
+     * 
+     * @param amount représente ici le montant que je souhaite retirer.
+     * @return le nouveau montant du solde.
+     * @throws Exception si le solde est insuffisant.
+     */
+    public int removeMoney(int amount) throws Exception {
 
-    int isMoneyRemoved = sc.nextInt();
-    // solde superieur ou égale à l'autorisation de découvert
-    if (amount >= this.overdraftAuthorization) {
-    //on récupèr balance pour
-    amount = this.balance - isMoneyRemoved;
+        // situation pb et qui jette une exception thrwow Exeption si le montant est
+        // supérieur à la somme du solde et du découvert
+        if (amount > this.balance + this.overdraftAuthorization) {
+
+            throw new Exception("Votre est insuffisant");
+
+        } else {
+            this.balance = this.balance - amount;
+            // this.balance += amount; c'est la même expression.
+        }
+        // nouveau solde
+        return this.balance;
     }
-    // solde superieur ou égale à l'autorisation de découvert
-    else {
-    throw new Exception("Votre est insuffisant");
-    }return amount;
+
+    /**
+     * cette foncntion est une opération de retrait améliorée mais intègre en plus en 
+     * paramètre le compte vers lequel sera transféré l'argent et le montant à  transferer.
+     * @param account2 représente le compte en banque vers lequel sera exécuté le transfert.
+     * @param amount représente le montant du transfert.
+     * @throws Exception renvoie à l'exception votre solde est insuffisant.
+     */
+    public void transferMoney(Account account2, int amount ) throws Exception{
+        if (amount > this.balance + this.overdraftAuthorization) {
+
+            throw new Exception("Votre est insuffisant");
+
+        } else {
+            this.balance = this.balance - amount;
+            account2 = new Account("1515dsfsd515", 0, 0);
+            account2.balance = this.balance + amount; 
+            // this.balance += amount; c'est la même expression.
+        }
+
     }
-    //
-    // ----------------------------------------------------------------------------------------------
+    }
 
-    //     //1) Si le montant est inférieur au découvert autorisé:
-    // public boolean checkBalance(int amount) {
-    //     //variable booléenne permettant de verifier si la retrait est possible ou pas
-    //     boolean isMoneyRemoved = false;
-    //     int removedMoney = sc.nextInt();
-    //     amount =  this.balance - removedMoney;
-    //     //stocker la variable booléenne IsMoneyRemoved la valeur true; donc l'opération est possible 
-    //     if (amount >= this.overdraftAuthorization) {
-    //         isMoneyRemoved = true;
-    //     //sinon stocker la valeur false; l'oération de retrait est donc impossible;
-    //     } else {
-    //         return false;
-    //     }
-    //     return isMoneyRemoved;
-    // }
 
-    // public boolean checkBalance(int amount) throws Exception{
-    //     //variable booléenne permettant de verifier si la retrait est possible ou pas
-    //     boolean isMoneyRemoved = false;
-    //     System.out.println("combien voulez-vous retirer?");
-    //     int removedMoney = sc.nextInt();
-    //     amount =  this.balance - removedMoney;
-    //     //stocker la variable booléenne IsMoneyRemoved la valeur true; donc l'opération est possible 
-    //     if (amount >= this.overdraftAuthorization) {
-    //         isMoneyRemoved = true;
-    //     //sinon stocker la valeur false; l'oération de retrait est donc impossible;
-    //     } else { throw new Exception("Votre solde est insuffisant");
-            
-    //     }
-    //     return isMoneyRemoved;
-    // }
-
-}
