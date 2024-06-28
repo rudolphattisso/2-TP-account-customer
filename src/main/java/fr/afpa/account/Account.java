@@ -129,21 +129,24 @@ class Account {
         // stringTocheck = "FR76 3000 1007 9412-3456/7890 185";
         // étape 1 suppression des caractères indésirables avec la methode de la classe String replaceall
         stringTocheck = stringTocheck.replaceAll("[^\\wàâäÄÀÂéèêëÈÊËìîïÌÏÎòöôÒÖÔùüûÙÜÛç!#$€%&'`(),;:/@...]", " ");
+        //Initialisation en amont des variables pour le point 3)  sur la transformation des F et R en leur valeur numérique
+        //les variables sont déclarée en haut dans un soucis de compilation
+        String stringTotransform = stringTocheck.substring(0, 2);
+        String stringForConcatenateFR = stringTocheck.substring(2,stringTocheck.length());
+        String stringForConcatenate76 = stringTocheck.substring(2,4);
         //  2 de la vérification de vérification de l'IBAN; placer les 4 prmemières caractères en fin de chaine.
-       
         String stringTocheckPart1 = stringTocheck.substring(0,4);
         String stringTocheckPart2 = stringTocheck.substring(4, stringTocheck.length());
-        String stringTotransform = stringTocheck.substring(0, 1);
         stringTocheck = stringTocheckPart2 + stringTocheckPart1;
-        String StringToCheckFin = "0";// faire la concatenation
         //3) remplacer les lettres par des chiffres (initatialisation de la variable string to converter pour recuperer le fr)
         char stringToChar1 = stringTotransform.charAt(0);
         char stringToChar2 = stringTotransform.charAt(1);
-        int numericValue1 = Character.getNumericValue(stringToChar1);
-        int numericValue2 = Character.getNumericValue(stringToChar2);
-        
-        // for (int i = 0; i < stringTocheck.length(); i++) {
-        //     int charValue = stringTocheck.charAt(i).getNumericValue;}
+        int numericValueChar1 = Character.getNumericValue(stringToChar1);
+        int numericValueChar2 = Character.getNumericValue(stringToChar2);
+        String numericValueConcatenateFR = Integer.toString(numericValueChar1) + Integer.toString(numericValueChar2);
+        String StringToCheckFinal= stringForConcatenateFR + numericValueConcatenateFR + stringForConcatenate76;// faire la concatenation
+    
+   
             
         
 

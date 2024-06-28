@@ -33,8 +33,9 @@ class AccountMain {
 
 	
 		// TODO afficher les informations des employés avec System.out.println
-		System.out.println("Combien voulez vous rajouter sur votre compte");
-		int moneyToAdd = sc.nextInt();
+		// System.out.println("Combien voulez vous rajouter sur votre compte");
+		// int moneyToAdd = sc.nextInt();
+		int moneyToAdd = 56;
 		System.out.println("votre solde est à présent de :" + account1.addMoney(moneyToAdd));
 		System.out.println("votre solde est à présent de :" + account1.addMoney(moneyToAdd));
 		// System.out.println("votre solde est à présent de :" +
