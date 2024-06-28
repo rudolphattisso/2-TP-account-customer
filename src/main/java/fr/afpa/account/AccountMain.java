@@ -21,8 +21,8 @@ class AccountMain {
 		System.out.println("votre montant est de : " + account1.getBalance() + "euros.");
 		System.out.println("votre montant est de : " + account1.getOverdraftAuthorization() + "euros.");
 		System.out.println(account1.toString());
-		
-		Account account2 = new Account("fr756sdds48", 7500, 000);
+
+		Account account2 = new Account("fr755eeds4", 7500, 000);
 		System.out.println("votre montant est de : " + account2.getIban() + "euros.");
 		System.out.println("votre montant est de : " + account2.getBalance() + "euros.");
 		System.out.println("votre montant est de : " + account2.getOverdraftAuthorization() + "euros.");
@@ -36,7 +36,7 @@ class AccountMain {
 		System.out.println("Combien voulez vous rajouter sur votre compte");
 		int moneyToAdd = sc.nextInt();
 		System.out.println("votre solde est à présent de :" + account1.addMoney(moneyToAdd));
-		System.out.println("votre solde est à présent de :" + account2.addMoney(moneyToAdd));
+		System.out.println("votre solde est à présent de :" + account1.addMoney(moneyToAdd));
 		// System.out.println("votre solde est à présent de :" +
 
 	    // comme la méthod eremove money jette un exception, il faut la recuperer dans
@@ -52,7 +52,7 @@ class AccountMain {
 			System.out.println(soldException.getMessage());
 		}
 
-
+		account1.checkIban("FR76 3000 1007 9412-3456 7890 185");
 
 	}
 }
