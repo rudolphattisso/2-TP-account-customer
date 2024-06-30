@@ -53,7 +53,8 @@ class AccountMain {
 			System.out.println(soldException.getMessage());
 		}
 
-		account1.checkIban("FR76 3000 1007 9412-3456 7890 185");
+		System.out.println(account1.checkIban("FR7630001007941234567890185"));
+		// account1.checkIban("FR7630001007941234567890185");
 
 	}
 }

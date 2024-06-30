@@ -1,5 +1,7 @@
 package fr.afpa.account;
 
+import java.math.BigInteger;
+
 /**
  * Classe représentant un compte bancaire
  */
@@ -145,7 +147,11 @@ class Account {
         int numericValueChar2 = Character.getNumericValue(stringToChar2);
         String numericValueConcatenateFR = Integer.toString(numericValueChar1) + Integer.toString(numericValueChar2);
         String StringToCheckFinal= stringForConcatenateFR + numericValueConcatenateFR + stringForConcatenate76;// faire la concatenation
-    
+        //4= convertion de de stringtocheckfinal (string) en big Integer car sa valeur est trop grande pourêtre contenue dans un int;
+        BigInteger intForModulo =  new BigInteger(StringToCheckFinal);
+        BigInteger mod97 = new BigInteger("97");
+        BigInteger modulo = intForModulo.mod(mod97) ;
+        
    
             
         
