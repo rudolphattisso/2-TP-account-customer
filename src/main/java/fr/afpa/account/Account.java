@@ -21,7 +21,9 @@ class Account {
         this.balance = balance;
         this.overdraftAuthorization = overdraftAuthorization;
     }
-    // nosu permettra d'afficher le code sur un terminal à l'aide la méthode toString
+
+    // nosu permettra d'afficher le code sur un terminal à l'aide la méthode
+    // toString
     @Override
     public String toString() {
         return "Account [iban=" + this.iban + ", balance=" + this.balance + ", overdraftAuthorization="
@@ -91,7 +93,8 @@ class Account {
     }
 
     /**
-     * cette foncntion est une opération de retrait d'argent améliorée mais intègre en plus
+     * cette foncntion est une opération de retrait d'argent améliorée mais intègre
+     * en plus
      * en paramètre le compte vers lequel sera transféré l'argent et le montant à
      * transferer.
      * 
@@ -113,54 +116,64 @@ class Account {
         }
 
     }
-/**
- * Ceci est l'algoorithme de vérification de l'IBAN.
-1) Enlever les caractères indésirables (espaces, tirets),
-2) Déplacer les 4 premiers caractères à la fin du compte,
-3) Remplacer les lettres par des chiffres au moyen d'une table de conversion (A=10, B=11, C=12 etc.),
-4) Diviser le nombre ainsi obtenu par 97,
-5) Si le reste n'est pas égal à 1 l'IBAN est incorrect : Modulo de 97 égal à 1.
- * @param stringTocheck est l'iban à vérifier
- * @return la valeur ibanIschecked qui est un booleen qui permet de déterminer si la l'iban est correct ou non.
- */
-    public boolean checkIban(String stringTocheck){
-        
-        
+
+    /**
+     * Ceci est l'algoorithme de vérification de l'IBAN.
+     * 1) Enlever les caractères indésirables (espaces, tirets),
+     * 2) Déplacer les 4 premiers caractères à la fin du compte,
+     * 3) Remplacer les lettres par des chiffres au moyen d'une table de conversion
+     * (A=10, B=11, C=12 etc.),
+     * 4) Diviser le nombre ainsi obtenu par 97,
+     * 5) Si le reste n'est pas égal à 1 l'IBAN est incorrect : Modulo de 97 égal à
+     * 1.
+     * 
+     * @param stringTocheck est l'iban à vérifier
+     * @return la valeur ibanIschecked qui est un booleen qui permet de déterminer
+     *         si la l'iban est correct ou non.
+     */
+    public static boolean checkIban(String stringTocheck) {
 
         // algo de vérification de l'Iban:
-        // stringTocheck = "FR76 3000 1007 9412-3456/7890 185";
-        // étape 1 suppression des caractères indésirables avec la methode de la classe String replaceall
-        stringTocheck = stringTocheck.replaceAll("[^\\wàâäÄÀÂéèêëÈÊËìîïÌÏÎòöôÒÖÔùüûÙÜÛç!#$€%&'`(),;:/@...]", " ");
-        //Initialisation en amont des variables pour le point 3)  sur la transformation des F et R en leur valeur numérique
-        //les variables sont déclarée en haut dans un soucis de compilation
-        String stringTotransform = stringTocheck.substring(0, 2);
-        String stringForConcatenateFR = stringTocheck.substring(2,stringTocheck.length());
-        String stringForConcatenate76 = stringTocheck.substring(2,4);
-        //  2 de la vérification de vérification de l'IBAN; placer les 4 prmemières caractères en fin de chaine.
-        String stringTocheckPart1 = stringTocheck.substring(0,4);
+        // étape 1 suppression des caractères indésirables avec la methode de la classe
+        // String replaceall
+        stringTocheck = stringTocheck.replaceAll("[*\sàâäÄÀÂéèêëÈÊËìîïÌÏÎòöôÒÖÔùüûÙÜÛç!#$€%&'`(),;:/@...]", "");
+        // Initialisation en amont des variables pour le point 3) sur la transformation
+        // des F et R en leur valeur numérique
+        // les variables sont déclarée en haut dans un soucis de compilation
+        char charF = stringTocheck.charAt(0);
+        char charR = stringTocheck.charAt(1);
+        
+        String stringForConcatenate76 = stringTocheck.substring(2, 4);
+        // 2 de la vérification de vérification de l'IBAN; placer les 4 prmemières
+        // caractères en fin de chaine.
+        String stringTocheckPart1 = stringTocheck.substring(0, 4);
         String stringTocheckPart2 = stringTocheck.substring(4, stringTocheck.length());
         stringTocheck = stringTocheckPart2 + stringTocheckPart1;
-        //3) remplacer les lettres par des chiffres (initatialisation de la variable string to converter pour recuperer le fr)
-        char stringToChar1 = stringTotransform.charAt(0);
-        char stringToChar2 = stringTotransform.charAt(1);
-        int numericValueChar1 = Character.getNumericValue(stringToChar1);
-        int numericValueChar2 = Character.getNumericValue(stringToChar2);
+        // 3) remplacer les lettres par des chiffres (initatialisation de la variable
+        // string to converter pour recuperer le fr)
+
+        int numericValueChar1 = Character.getNumericValue(charF);
+        int numericValueChar2 = Character.getNumericValue(charR);
         String numericValueConcatenateFR = Integer.toString(numericValueChar1) + Integer.toString(numericValueChar2);
-        String StringToCheckFinal= stringForConcatenateFR + numericValueConcatenateFR + stringForConcatenate76;// faire la concatenation
-        //4= convertion de de stringtocheckfinal (string) en big Integer car sa valeur est trop grande pourêtre contenue dans un int;
-        BigInteger intForModulo =  new BigInteger(StringToCheckFinal);
+        String stringToCheckFinal = stringTocheckPart2 + numericValueConcatenateFR + stringForConcatenate76;// faire
+                                                                                                            // la
+                                                                                                            // concatenation
+        // 4= convertion de de stringtocheckfinal (string) en big Integer car sa valeur
+        // est trop grande pourêtre contenue dans un int;
+        BigInteger intForModulo = new BigInteger(stringToCheckFinal);
         BigInteger mod97 = new BigInteger("97");
-        BigInteger modulo = intForModulo.mod(mod97) ;
-        
-   
-            
-        
+        BigInteger modulo = intForModulo.mod(mod97);
+        int moduloInt = modulo.intValue();
 
         boolean ibanIsChecked = false;
+        if (moduloInt == 1) {
+            ibanIsChecked = true;
+
+        } else {
+            return false;
+        }
+
         return ibanIsChecked;
-}
+    }
 
 }
-
-
-
