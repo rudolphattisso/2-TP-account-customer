@@ -12,16 +12,21 @@ public class Customer {
     private String lastName;
     private ArrayList<Account> accounts = new ArrayList<Account>();
 
+
     //constructeur
     public Customer(int id, String firstName, String lastName) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.accounts = accounts;
     }
+
     @Override
     public String toString() {
-        return "Customer [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + "]";
+        return "Customer [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", accounts=" + accounts
+                + "]";
     }
+
     //getters
     public int getId(){
         return this.id;
@@ -37,29 +42,20 @@ public class Customer {
 
     //setters
     public void setLastName(String lastName){
-        lastName = this.lastName; 
+        this.lastName = lastName; 
     }
 
     public void setFirstName(String firstName){
-        firstName = this.firstName;
+        this.firstName = firstName;
     }
 
 
-    public static ArrayList<String> addAccount(){
-        ArrayList<String> accountaArrayList = new ArrayList<String>();
-        accountaArrayList.add("firstName");
-        accountaArrayList.add("lastName");
-        accountaArrayList.add("id");
-        return accountaArrayList;
+    public void addAccount(Account accountToAdd){
+        this.accounts.add(accountToAdd);
     }
 
-    public static ArrayList<String> removeAccount(){
-        ArrayList<String> accountaArrayList = new ArrayList<String>();
-       String firstName = accountaArrayList.remove(0);
-       String lastName =  accountaArrayList.remove(1);
-       String id = accountaArrayList.remove(2);
-
-        return accountaArrayList;
+    public void removeAccount(Account accountToRemove){
+        this.accounts.remove(accountToRemove);
     }
 
 

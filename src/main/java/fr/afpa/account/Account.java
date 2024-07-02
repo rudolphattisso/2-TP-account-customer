@@ -142,15 +142,13 @@ class Account {
         // les variables sont déclarée en haut dans un soucis de compilation
         char charF = stringTocheck.charAt(0);
         char charR = stringTocheck.charAt(1);
-        
+
         String stringForConcatenate76 = stringTocheck.substring(2, 4);
         // 2 de la vérification de vérification de l'IBAN; placer les 4 prmemières
-        // caractères en fin de chaine.
-        String stringTocheckPart1 = stringTocheck.substring(0, 4);
+
         String stringTocheckPart2 = stringTocheck.substring(4, stringTocheck.length());
-        stringTocheck = stringTocheckPart2 + stringTocheckPart1;
-        // 3) remplacer les lettres par des chiffres (initatialisation de la variable
-        // string to converter pour recuperer le fr)
+
+        // 3)
 
         int numericValueChar1 = Character.getNumericValue(charF);
         int numericValueChar2 = Character.getNumericValue(charR);
